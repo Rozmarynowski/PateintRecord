@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { PatientComponent } from './patient/patient/patient.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PatientComponent
   ],
   imports: [
     BrowserModule,

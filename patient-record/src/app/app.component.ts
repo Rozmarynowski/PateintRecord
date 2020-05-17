@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { PatientComponent } from './patient/patient/patient.component';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +7,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
- name = 'adam';
- data: Array<number> = [1, 2, 3, 4, 5, 6, 7];
- selectedDecimal = 1;
+;
+  editMode = true;  data: Array<number> = [1, 2, 3, 4, 5, 6, 7];
+  selectedDecimal = 1;
+  name = 'Adam';
+  surname = 'Rozmarynowski';
+  pesel = '23028234792';
+
+
+  edit() {
+    this.editMode = true;
+  }
+
+  // save() {
+  //   this.editMode = false;
+  //   return this.name;
+  // }
+
+
+
 }

@@ -8,7 +8,7 @@
   right: 10%;
   top: 10%;
   width: 60%;
-  height: 80%;
+  height: 500px;
 }
 
 .hr-line {
@@ -32,6 +32,7 @@
   background-color: #9be8df;
   transition-duration: 0.4s;
   cursor: pointer;
+
 }
 
 .btn-start:hover {
@@ -39,33 +40,4 @@
   color: black;
 }
 
-.form-control{
-  width: 100%;
-  height: 40px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
 
-.patient-data1{
-  padding: 0% 5% 5% 5%;
-  float: left;
-  width: 50%;
-}
-
-
-
-.dropdown-window-btn
-{
-  width: 100%;
-  height: 40px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.form-control-ill{
-  width: 100%;
-  height: 120px;
-  border-radius: 5px;
-  border: #ced4da solid 1px;
-  margin-bottom: 10px;
-}
