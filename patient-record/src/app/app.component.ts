@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'patient-record';
+ name = 'adam';
+ data: Array<number> = [1, 2, 3, 4, 5, 6, 7];
+ selectedDecimal = 1;
 }
