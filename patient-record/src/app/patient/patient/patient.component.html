@@ -2,21 +2,21 @@
   <div class="patient-data1"><br>
     <label>Pesel</label>
     <ng-container *ngIf="editMode === true; else elseBlock1">
-      <input type="text" class="form-control" value="{{patientModel.pesel}}" [(ngModel)] = "pesel">
+      <input type="text" class="form-control" [(ngModel)]="patientModel.pesel">
     </ng-container>
     <ng-template #elseBlock1>
       <h4>{{patientModel.pesel}}</h4>
     </ng-template>
     <label>Imię</label>
     <ng-container *ngIf="editMode === true; else elseBlock2">
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" [(ngModel)]="patientModel.name">
     </ng-container>
     <ng-template #elseBlock2>
       <h4>{{patientModel.name}}</h4>
     </ng-template>
     <label>Nazwisko</label>
     <ng-container *ngIf="editMode === true; else elseBlock3">
-    <input type="text" class="form-control">
+      <input type="text" class="form-control" [(ngModel)]="patientModel.surname">
     </ng-container>
     <ng-template #elseBlock3>
       <h4>{{patientModel.surname}}</h4>
@@ -28,13 +28,22 @@
 
     <div class="dropdown-window">
       <label>Przychodnia</label><br>
-      <select class="dropdown-window-btn" [(ngModel)]="selectedDecimal">
-        <option *ngFor="let item of data" [ngValue]="item">{{item}}</option>
-      </select>
+      <ng-container *ngIf="editMode === true; else elseBlock4">
+        <select class="dropdown-window-btn" [(ngModel)]="patientModel.clinic">
+          <option *ngFor="let item of data" [ngValue]="item">{{item}}</option>
+        </select>
+      </ng-container>
+      <ng-template #elseBlock4>
+        <h4>{{patientModel.clinic}}</h4>
+      </ng-template>
     </div>
 
     <label>Choroby przewlekłe:</label>
-    <textarea class="form-control-ill"></textarea>
-
+    <ng-container *ngIf="editMode === true; else elseBlock5">
+      <textarea class="form-control-ill" [(ngModel)]="patientModel.comment" >{{patientModel.comment}}</textarea>
+    </ng-container>
+    <ng-template #elseBlock5>
+      <textarea disabled class="form-control-ill">{{patientModel.comment}}</textarea>
+    </ng-template>
   </div>
 </div>

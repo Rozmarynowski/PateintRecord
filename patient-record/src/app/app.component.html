@@ -6,12 +6,20 @@
       <button class="btn-start">Dodaj Pacjenta</button>
       <button class="btn-start">Wczytaj Pacjenta</button>
     </div>
-    <app-patient #appPatient></app-patient>
+    <app-patient #appPatient [editMode] = "editMode" (eventEditMode) = "save($event)"></app-patient>
 
 
     <div class="hr-line">
-      <button style="float: right; margin-right: 20px;" class="btn-start" (click)="edit()">Edytuj</button>
-      <ng-container *ngIf="editMode == false">
+      <button style="float: right; margin-right: 20px;" class="btn-start" (click)="edit()">
+        <ng-container *ngIf = "editMode == false; else cancelEdit">
+        Edytuj
+        </ng-container>
+        <ng-template #cancelEdit>
+        Anuluj Edycję
+        </ng-template>
+
+      </button>
+      <ng-container *ngIf="editMode == true">
       <button style="float: right;" class="btn-start" (click)="appPatient.save()">Zapisz</button>
       </ng-container>
 

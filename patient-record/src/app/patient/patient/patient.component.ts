@@ -1,36 +1,41 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Patient } from './patient';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CsvDataService } from './csvDataService';
+import { Patient } from './patient';
 
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
   styleUrls: ['./patient.component.css']
 })
-export class PatientComponent implements OnInit {
-  patientModel: Patient = new Patient('02020204256', 'Adam', 'Rozmarynowski');
-  name;
-  surname;
-  pesel;
-  editMode;
+export class PatientComponent {
   objectArr: Patient[] = new Array();
-  data: Array<number> = [1, 2, 3, 4, 5, 6, 7];
-  selectedDecimal = 1;
+  data: Array<string> = [
+    'Poradnia Podstawowej Opieki Zdrowotnej',
+    'NZOZ-Poradnia',
+    'Patron-Med',
+    'Med-Kol',
+    'Miejska Przychodnia Dąbrowa'];
 
-  ngOnInit() {
-    this.editMode = false;
-  }
+  patientModel: Patient = new Patient('', '', '', '', '');
+
+
+  @Input()
+  editMode;
+
+  @Output()
+  eventEditMode = new EventEmitter();
+
 
   save() {
     console.log('Zapisuję!');
     this.objectArr.push(this.patientModel);
     CsvDataService.exportToCsv('patients.csv', this.objectArr);
+    this.eventEditMode.emit(false);
   }
 
-
-  createPatient() {
-    this.patientModel = new Patient(this.pesel, this.name, this.surname);
-  }
+  // createPatient() {
+  //   this.patientModel = new Patient(this.pesel, this.name, this.surname);
+  // }
 
 
 

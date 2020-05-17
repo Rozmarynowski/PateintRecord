@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { PatientComponent } from './patient/patient/patient.component';
 
 @Component({
@@ -7,22 +7,15 @@ import { PatientComponent } from './patient/patient/patient.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-;
-  editMode = true;  data: Array<number> = [1, 2, 3, 4, 5, 6, 7];
-  selectedDecimal = 1;
-  name = 'Adam';
-  surname = 'Rozmarynowski';
-  pesel = '23028234792';
-
+  editMode = false;
 
   edit() {
-    this.editMode = true;
+    this.editMode = !this.editMode;
   }
 
-  // save() {
-  //   this.editMode = false;
-  //   return this.name;
-  // }
+  save(emit) {
+    this.editMode = emit;
+  }
 
 
 
