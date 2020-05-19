@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { CsvDataService } from './csvDataService';
 import { Patient } from './patient';
 
@@ -7,9 +7,14 @@ import { Patient } from './patient';
   templateUrl: './patient.component.html',
   styleUrls: ['./patient.component.css']
 })
-export class PatientComponent {
+export class PatientComponent implements OnChanges {
+
   objectArr: Patient[] = new Array();
+
+
+
   data: Array<string> = [
+    '',
     'Poradnia Podstawowej Opieki Zdrowotnej',
     'NZOZ-Poradnia',
     'Patron-Med',
@@ -18,6 +23,8 @@ export class PatientComponent {
 
   patientModel: Patient = new Patient('', '', '', '', '');
 
+  @Input()
+  newPatient;
 
   @Input()
   editMode;
@@ -25,18 +32,38 @@ export class PatientComponent {
   @Output()
   eventEditMode = new EventEmitter();
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.patientModel = this.newPatient;
+  }
 
-  save() {
+  save(name) {
     console.log('Zapisuję!');
     this.objectArr.push(this.patientModel);
-    CsvDataService.exportToCsv('patients.csv', this.objectArr);
+    CsvDataService.exportToCsv(name + '.csv', this.objectArr);
     this.eventEditMode.emit(false);
   }
 
-  // createPatient() {
-  //   this.patientModel = new Patient(this.pesel, this.name, this.surname);
-  // }
+  addNew() {
+    this.eventEditMode.emit(true);
+    this.patientModel.pesel = '';
+    this.patientModel.name = '';
+    this.patientModel.surname = '';
+    this.patientModel.clinic = '';
+    this.patientModel.comment = '';
+  }
 
+  change(patient: Patient) {
+    this.patientModel.pesel = patient.name;
+  }
+
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57) ) {
+      return false;
+    }
+    return true;
+  }
 
 
 

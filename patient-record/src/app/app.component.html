@@ -1,49 +1,37 @@
 <div class="main-container">
   <h3>Karta Pacjenta</h3>
-
   <div>
     <div class="hr-line">
-      <button class="btn-start">Dodaj Pacjenta</button>
-      <button class="btn-start">Wczytaj Pacjenta</button>
+      <button class="btn-start" (click)="appPatient.addNew()">Dodaj Pacjenta</button>
+      <button class="btn-start" (click)="csvReader.file()">Wczytaj Pacjenta
+        <input type="file" style="display:none" (change)="csvReader.openFile($event)">
+      </button>
     </div>
-    <app-patient #appPatient [editMode] = "editMode" (eventEditMode) = "save($event)"></app-patient>
-
+    <app-patient #appPatient [editMode]="editMode" (eventEditMode)="save($event)" [newPatient]="patient"></app-patient>
+    <app-csv-reader #csvReader (eventCSVEmiter)="check($event)"></app-csv-reader>
 
     <div class="hr-line">
-      <button style="float: right; margin-right: 20px;" class="btn-start" (click)="edit()">
-        <ng-container *ngIf = "editMode == false; else cancelEdit">
-        Edytuj
-        </ng-container>
-        <ng-template #cancelEdit>
-        Anuluj Edycję
-        </ng-template>
-
-      </button>
-      <ng-container *ngIf="editMode == true">
-      <button style="float: right;" class="btn-start" (click)="appPatient.save()">Zapisz</button>
+      <ng-container *ngIf="isClicked == true || editMode == true">
+        <button style="float: right; margin-right: 20px;" class="btn-start" (click)="edit()">
+          <ng-container *ngIf="editMode == false; else cancelEdit">
+            Edytuj
+          </ng-container>
+          <ng-template #cancelEdit>
+            Zakończ Edycję
+          </ng-template>
+        </button>
       </ng-container>
-
+      <ng-container *ngIf="isClicked == true">
+        <button style="float: right;" class="btn-start" (click)="appPatient.save(saveFile)">Zapisz</button>
+      </ng-container>
+      <ng-container *ngIf="editMode === true; else elseBlock3">
+        <h6>Nazwa pliku zapisu: <input type="text" class="savefile" [(ngModel)]="saveFile"> </h6>
+      </ng-container>
+      <ng-template #elseBlock3>
+        <h6>Nazwa pliku zapisu: {{saveFile}}</h6>
+      </ng-template>
     </div>
 
   </div>
 
 </div>
-
-
-
-
-
-
-<!--
-  <strong id="name" ng-if="!editMode">{{ name }}</strong>
-<span ng-if="editMode">
-  <input ng-model="name">
-  <button ng-click="save(keyword); editMode = false">Save</button>
-  <span>
-
-
-    <td>
-      <button ng-click="editKeyword(keyword); editMode = true">Edit</button>
-      <button ng-click="deleteKeyword(keyword)">Delete</button>
-    </td>
-  -->

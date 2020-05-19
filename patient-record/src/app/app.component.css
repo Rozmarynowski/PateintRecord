@@ -41,4 +41,10 @@
   color: black;
 }
 
-
+.savefile{
+  width: 30%;
+  height: 90%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: #ced4da solid 1px;
+}
